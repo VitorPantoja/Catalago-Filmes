@@ -1,13 +1,13 @@
 package com.lead.catalagofilmes;
 
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 
 public class Categoria {
 
     private HashMap<String ,Filme> listaFilmes = new HashMap<>();
-    private List<String> idiomas;
+    private ArrayList<Idioma> idiomas = new ArrayList<Idioma>();
     private String nome;
     private String tag;
 
@@ -18,7 +18,7 @@ public class Categoria {
 
     public void Mostra(){
         for (String i : listaFilmes.keySet()) {
-            System.out.println(listaFilmes.get(i).getNome());
+            System.out.println(listaFilmes.get(i).getTitulo());
             System.out.println(listaFilmes.get(i).getSinopse());
         }
     }

@@ -8,14 +8,15 @@ public class CatalagoFilmesApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(CatalagoFilmesApplication.class, args);
-		/*Filme filme = new Filme("Filme","filmeeeeee");
+		Filme filme = new Filme("Filme","filmeeeeee");
         Categoria categoria = new Categoria();
         categoria.AdicionaFilmesCategoria("Ação", filme);
         categoria.Mostra();
         //categoria.PesquisaPorNome("Filme");
-        categoria.Categorias("Ação");*/
+        categoria.Categorias("Ação");
 		Usuario user = new Visitante();
 		Usuario user1 = new Visitante();
+		Idioma idiomas = new Idioma();
 
 		System.out.println(user.getNome());
 	}
