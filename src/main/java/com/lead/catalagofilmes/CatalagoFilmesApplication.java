@@ -14,10 +14,14 @@ public class CatalagoFilmesApplication {
         categoria.Mostra();
         //categoria.PesquisaPorNome("Filme");
         categoria.Categorias("Ação");*/
-		Usuario user = new Visitante();
-		Usuario user1 = new Visitante();
+		Usuario user = new Usuario();
+		Categoria cat = new Categoria();
+		Idioma idioma = new Idioma("Ingles","US");
+		user.setIdioma(idioma);
+		cat.setIdiomas(user.getIdioma());
 
-		System.out.println(user.getNome());
+
+
 	}
 
 }

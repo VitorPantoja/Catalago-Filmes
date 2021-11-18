@@ -7,13 +7,21 @@ import java.util.List;
 public class Categoria {
 
     private HashMap<String ,Filme> listaFilmes = new HashMap<>();
-    private List<String> idiomas;
+    private Idioma idiomas;
     private String nome;
     private String tag;
 
 
     public void AdicionaFilmesCategoria(String categoria, Filme filme){
         listaFilmes.put(categoria, filme);
+    }
+
+    public Idioma getIdiomas() {
+        return idiomas;
+    }
+
+    public void setIdiomas(Idioma idiomas) {
+        this.idiomas = idiomas;
     }
 
     public void Mostra(){
