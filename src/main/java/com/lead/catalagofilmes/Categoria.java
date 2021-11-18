@@ -18,7 +18,7 @@ public class Categoria {
 
     public void Mostra(){
         for (String i : listaFilmes.keySet()) {
-            System.out.println(listaFilmes.get(i).getNome());
+            System.out.println(listaFilmes.get(i).getTitulo());
             System.out.println(listaFilmes.get(i).getSinopse());
         }
     }

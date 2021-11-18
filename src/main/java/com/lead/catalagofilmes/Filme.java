@@ -1,29 +1,15 @@
 package com.lead.catalagofilmes;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter @Setter
 public class Filme {
-    private String nome;
+    private String titulo;
     private String sinopse;
-
-
-    public Filme(String nome, String sinopse) {
-        this.nome = nome;
-        this.sinopse = sinopse;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getSinopse() {
-        return sinopse;
-    }
-
-    public void setSinopse(String sinopse) {
-        this.sinopse = sinopse;
-    }
+    private String imagem;
+    private String dataDelançamento;
+    private String duração;
+    private Idioma idiomas;
 
 }
