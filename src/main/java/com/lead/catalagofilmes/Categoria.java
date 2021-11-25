@@ -1,47 +1,42 @@
 package com.lead.catalagofilmes;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Getter;
+import lombok.Setter;
+
+import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-
+@Getter @Setter
+@Entity
 public class Categoria {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long Id;
 
-    private HashMap<String ,Filme> listaFilmes = new HashMap<>();
+
+    @OneToMany(mappedBy = "categoria")
+    private List<Filme> filmes = new ArrayList<>();
+    @ManyToOne
     private Idioma idiomas;
+
     private String nome;
     private String tag;
 
 
-    public void AdicionaFilmesCategoria(String categoria, Filme filme){
-        listaFilmes.put(categoria, filme);
-    }
 
-    public Idioma getIdiomas() {
-        return idiomas;
-    }
 
-    public void setIdiomas(Idioma idiomas) {
-        this.idiomas = idiomas;
-    }
 
-    public void Mostra(){
-        for (String i : listaFilmes.keySet()) {
-            System.out.println(listaFilmes.get(i).getTitulo());
-            System.out.println(listaFilmes.get(i).getSinopse());
-        }
-    }
-    /*
-    public void PesquisaPorNome(String nome){
-        for (Filme i : listaFilmes.keySet()) {
-            if (i.getNome().equals(nome)){
-                System.out.println(i.getNome());
-            }
+   /* public void Mostra(){
+        for (Filme i : filmes) {
+            System.out.println(i.getTitulo());
+            System.out.println(i.getCategoria());
         }
     }*/
 
-    public void Categorias(String categoria){
-        System.out.println(listaFilmes.get(categoria).getSinopse());
 
-    }
+
 
 }
