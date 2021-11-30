@@ -1,16 +1,20 @@
-package com.lead.catalagofilmes;
+package com.lead.catalagofilmes.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.HashMap;
+
 import java.util.List;
 
 @Getter @Setter
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
 public class Categoria {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,11 +23,13 @@ public class Categoria {
 
     @OneToMany(mappedBy = "categoria")
     private List<Filme> filmes = new ArrayList<>();
+
     @ManyToOne
     private Idioma idiomas;
 
     private String nome;
     private String tag;
+
 
 
 
@@ -35,6 +41,8 @@ public class Categoria {
             System.out.println(i.getCategoria());
         }
     }*/
+    /*@OneToOne
+    private Usuario usuario;*/
 
 
 

@@ -1,14 +1,15 @@
-package com.lead.catalagofilmes;
+package com.lead.catalagofilmes.models;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Getter @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 public class Idioma {
     @Id
@@ -17,4 +18,7 @@ public class Idioma {
     private String nome;
     private String tag;
 
+    /*@OneToOne
+    private Usuario usuario;
+*/
 }

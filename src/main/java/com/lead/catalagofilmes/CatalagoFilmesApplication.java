@@ -13,7 +13,7 @@ public class CatalagoFilmesApplication {
 		SpringApplication.run(CatalagoFilmesApplication.class, args);
 		/*Filme filme = new Filme();
 		filme.setTitulo("FilmeH");
-		Idioma idioma = new Idioma("Ingles","US");
+		IdiomaService idioma = new IdiomaService("Ingles","US");
 
 		Categoria drama = new Categoria();
 		drama.setIdiomas(idioma);
@@ -26,7 +26,7 @@ public class CatalagoFilmesApplication {
 		drama.Mostra();
 		//drama.PesquisaPorNome("Filme");
 		//drama.Categorias("Ação");
-		Usuario user = new Usuario();
+		UsuarioService user = new UsuarioService();
 		Categoria cat = new Categoria();
 		user.setIdioma(idioma);
 		cat.setIdiomas(user.getIdioma());

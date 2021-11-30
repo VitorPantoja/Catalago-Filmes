@@ -1,4 +1,4 @@
-package com.lead.catalagofilmes;
+package com.lead.catalagofilmes.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
@@ -17,8 +17,10 @@ public class Filme {
     private String imagem;
     private String dataDelançamento;
     private String duração;
+
     @ManyToOne
     private Idioma idiomas;
+
     @JsonIgnore
     @ManyToOne
     @JoinColumn
