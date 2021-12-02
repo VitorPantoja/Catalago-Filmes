@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
@@ -18,12 +19,13 @@ public class FilmeController {
     @Autowired
     private FilmeService filmeService;
 
+    @ResponseBody
     @GetMapping(value = "/filmesAll")
     public ResponseEntity<List<Filme>> findAll(){
         List<Filme> list = filmeService.findAll();
         return ResponseEntity.ok().body(list);
     }
-
+    @ResponseBody
     @GetMapping(value = "/{id}")
     public ResponseEntity<Filme> findById(@PathVariable Long id){
         Filme obj = filmeService.findById(id);

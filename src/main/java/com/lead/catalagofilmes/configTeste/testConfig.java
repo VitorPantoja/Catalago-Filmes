@@ -44,10 +44,10 @@ public class testConfig implements CommandLineRunner{
         Usuario Elano = new Usuario(null,"Elano","000-000-000-00","+00-000-00000000","elanoDescomplica@email.com","queSenha",ingles,aventura);
         Usuario Cleber = new Usuario(null, "Cleber","000.000.000-00","+000000000-0000","emailDescomplica@email.com","queSenha?",portugues,aventura);
 
-        idiomaRepository.saveAll(Arrays.asList(ingles, portugues));
+       /* idiomaRepository.saveAll(Arrays.asList(ingles, portugues));
         categoriaRepository.saveAll(Arrays.asList(aventura));
 
-        usuarioRepository.saveAll(Arrays.asList(Elano,Cleber));
+        usuarioRepository.saveAll(Arrays.asList(Elano,Cleber));*/
 
 
     }

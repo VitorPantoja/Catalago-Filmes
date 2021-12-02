@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
@@ -18,12 +19,14 @@ public class UsuarioController {
     @Autowired
     private UsuarioService usuarioService;
 
+    @ResponseBody
     @GetMapping(value = "/userAll")
     public ResponseEntity<List<Usuario>> findAll(){
         List<Usuario> list = usuarioService.findAll();
         return ResponseEntity.ok().body(list);
     }
 
+    @ResponseBody
     @GetMapping(value = "/{id}")
     public ResponseEntity<Usuario> findById(@PathVariable Long id){
         Usuario obj = usuarioService.findById(id);

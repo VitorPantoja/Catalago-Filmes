@@ -30,11 +30,6 @@ public class Categoria {
     private String nome;
     private String tag;
 
-
-
-
-
-
    /* public void Mostra(){
         for (Filme i : filmes) {
             System.out.println(i.getTitulo());
