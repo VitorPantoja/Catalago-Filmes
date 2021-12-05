@@ -32,4 +32,6 @@ public class IdiomaController {
         Idioma obj = idiomaService.findById(id);
         return ResponseEntity.ok().body(obj);
     }
+
+
 }

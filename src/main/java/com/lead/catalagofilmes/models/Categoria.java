@@ -1,6 +1,7 @@
 package com.lead.catalagofilmes.models;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -30,16 +31,44 @@ public class Categoria {
     private String nome;
     private String tag;
 
-   /* public void Mostra(){
-        for (Filme i : filmes) {
-            System.out.println(i.getTitulo());
-            System.out.println(i.getCategoria());
+    public void addFilmes(Filme filme){
+        this.filmes.add(filme);
+    }
+
+    public void removeFilme(Long Id) {
+        for (Filme i: filmes) {
+            if (i.getId().equals(Id)){
+                this.filmes.remove(i);
+                return;
+            }
+
         }
+    }
+
+
+    /*public Long getIdFilmes(Long id) {
+        Long retorno = null;
+        for (Filme i : filmes) {
+            if (i.getId().equals(id)){
+                retorno = id;
+            }
+        }
+        return retorno;
+    }
+
+    public long removeFilmeId(Long id){
+        for (Filme i : filmes) {
+            if(i.getId().equals(id)){
+              this.filmes.remove(i);
+              break;
+            }
+        }
+        return 0;
     }*/
+
     /*@OneToOne
     private Usuario usuario;*/
 
 
+    }
 
-
-}

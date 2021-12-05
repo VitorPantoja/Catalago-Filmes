@@ -1,13 +1,17 @@
 package com.lead.catalagofilmes.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
 
 @Getter @Setter
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 public class Filme {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,5 +29,6 @@ public class Filme {
     @ManyToOne
     @JoinColumn
     private Categoria categoria;
+
 
 }

@@ -24,4 +24,26 @@ public class UsuarioService {
         return obg.get();
     }
 
+    public Usuario save(Usuario obj){
+        return usuarioRepository.save(obj);
+    }
+
+    public void deleteById(Long id){
+        usuarioRepository.deleteById(id);
+    }
+
+    public Usuario update(Long id, Usuario obj){
+        Usuario newObj = usuarioRepository.getById(id);
+        updateData(newObj, obj);
+        return usuarioRepository.save(obj);
+    }
+
+    private void updateData(Usuario newObj, Usuario obj) {
+        newObj.setNome(obj.getNome());
+        newObj.setCpf(obj.getCpf());
+        newObj.setEmaiil(obj.getEmaiil());
+        newObj.setIdioma(obj.getIdioma());
+        newObj.setTelefone(obj.getTelefone());
+    }
+
 }

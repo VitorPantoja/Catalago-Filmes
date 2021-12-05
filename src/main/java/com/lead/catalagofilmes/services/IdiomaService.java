@@ -22,4 +22,25 @@ public class IdiomaService {
         Optional<Idioma> obj = idiomaRepository.findById(id);
         return obj.get();
     }
+
+    public Idioma save(Idioma idioma){
+        return idiomaRepository.save(idioma);
+    }
+
+    public void deleteById(Long id){
+        idiomaRepository.deleteById(id);
+    }
+
+    public Idioma update(Long id, Idioma obj){
+        Idioma newObj = idiomaRepository.getById(id);
+        updateData(newObj, obj);
+        return idiomaRepository.save(newObj);
+    }
+
+    private void updateData(Idioma newObj, Idioma obj) {
+        newObj.setTag(obj.getTag());
+        newObj.setNome(obj.getNome());
+    }
+
+
 }

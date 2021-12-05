@@ -5,10 +5,7 @@ import com.lead.catalagofilmes.services.CategoriaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -27,9 +24,16 @@ public class CategoriaController {
         return ResponseEntity.ok().body(list);
     }
     @ResponseBody
-    @GetMapping(value = "/{id}")
+    @GetMapping(value = "/categoriaid{id}")
     public ResponseEntity<Categoria> findById(@PathVariable Long id){
         Categoria obj = categoriaService.findById(id);
+        return ResponseEntity.ok().body(obj);
+    }
+
+    @PutMapping(value = "/categoria{id}")
+    public ResponseEntity<Categoria> update(@PathVariable Long id, @RequestBody Categoria obj){
+        obj = categoriaService.update(id, obj);
+        obj = categoriaService.save(obj);
         return ResponseEntity.ok().body(obj);
     }
 }
