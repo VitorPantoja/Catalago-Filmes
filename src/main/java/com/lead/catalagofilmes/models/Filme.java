@@ -25,7 +25,7 @@ public class Filme {
     @ManyToOne
     private Idioma idiomas;
 
-    @JsonIgnore
+
     @ManyToOne
     @JoinColumn
     private Categoria categoria;

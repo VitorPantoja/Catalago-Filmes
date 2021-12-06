@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 
@@ -31,9 +32,9 @@ public class CategoriaController {
     }
 
     @PutMapping(value = "/categoria{id}")
-    public ResponseEntity<Categoria> update(@PathVariable Long id, @RequestBody Categoria obj){
-        obj = categoriaService.update(id, obj);
-        obj = categoriaService.save(obj);
+    @Transactional
+    public ResponseEntity<Categoria> update(@RequestBody Categoria obj){
+        obj = categoriaService.update(obj);
         return ResponseEntity.ok().body(obj);
     }
 }

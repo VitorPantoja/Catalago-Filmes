@@ -31,19 +31,11 @@ public class FilmeService {
         filmeRepository.deleteById(id);
     }
 
-    public Filme update(Long id, Filme obj){
-        Filme newObj = filmeRepository.getById(id);
-        updateData(newObj, obj);
+    public Filme update(Filme obj){
+        Filme newObj = filmeRepository.getById(obj.getId());
         return filmeRepository.save(newObj);
     }
 
-    private void updateData(Filme newObj, Filme obj) {
-        newObj.setTitulo(obj.getTitulo());
-        newObj.setDataDelançamento(obj.getDataDelançamento());
-        newObj.setDuração(obj.getDuração());
-        newObj.setIdiomas(obj.getIdiomas());
-        newObj.setImagem(obj.getImagem());
-        newObj.setSinopse(obj.getSinopse());
-    }
+
 
 }

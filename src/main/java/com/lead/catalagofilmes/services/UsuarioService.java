@@ -1,5 +1,6 @@
 package com.lead.catalagofilmes.services;
 
+import com.lead.catalagofilmes.models.Filme;
 import com.lead.catalagofilmes.models.Usuario;
 import com.lead.catalagofilmes.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,18 +33,12 @@ public class UsuarioService {
         usuarioRepository.deleteById(id);
     }
 
-    public Usuario update(Long id, Usuario obj){
-        Usuario newObj = usuarioRepository.getById(id);
-        updateData(newObj, obj);
-        return usuarioRepository.save(obj);
+    public Usuario update(Usuario obj){
+
+        Usuario newObj = usuarioRepository.getById(obj.getId());
+        return usuarioRepository.save(newObj);
+
     }
 
-    private void updateData(Usuario newObj, Usuario obj) {
-        newObj.setNome(obj.getNome());
-        newObj.setCpf(obj.getCpf());
-        newObj.setEmaiil(obj.getEmaiil());
-        newObj.setIdioma(obj.getIdioma());
-        newObj.setTelefone(obj.getTelefone());
-    }
 
 }

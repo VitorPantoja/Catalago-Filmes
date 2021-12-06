@@ -24,7 +24,6 @@ public class Usuario {
     private String senha;
     @OneToOne
     private Idioma idioma;
-    @OneToOne
-    private Categoria categoria;
+
 }
 

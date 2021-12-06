@@ -31,16 +31,12 @@ public class IdiomaService {
         idiomaRepository.deleteById(id);
     }
 
-    public Idioma update(Long id, Idioma obj){
-        Idioma newObj = idiomaRepository.getById(id);
-        updateData(newObj, obj);
+    public Idioma update(Idioma obj){
+        Idioma newObj = idiomaRepository.getById(obj.getId());
         return idiomaRepository.save(newObj);
     }
 
-    private void updateData(Idioma newObj, Idioma obj) {
-        newObj.setTag(obj.getTag());
-        newObj.setNome(obj.getNome());
-    }
+
 
 
 }
