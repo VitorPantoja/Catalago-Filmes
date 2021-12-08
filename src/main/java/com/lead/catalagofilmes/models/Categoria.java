@@ -21,11 +21,13 @@ public class Categoria {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;
 
-    @ManyToOne
+    @ManyToOne//(cascade = CascadeType.ALL)
+    @JoinColumn
     private Idioma idiomas;
 
     private String nome;
     private String tag;
+
 
 
 

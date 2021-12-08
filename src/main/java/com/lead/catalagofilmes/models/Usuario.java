@@ -22,7 +22,8 @@ public class Usuario {
     private String telefone;
     private String emaiil;
     private String senha;
-    @OneToOne
+    @OneToOne//(cascade = CascadeType.ALL)
+    @JoinColumn
     private Idioma idioma;
 
 }

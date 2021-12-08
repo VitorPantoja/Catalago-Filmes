@@ -1,15 +1,14 @@
 package com.lead.catalagofilmes.controller;
 
+import com.lead.catalagofilmes.models.Categoria;
 import com.lead.catalagofilmes.models.Idioma;
 import com.lead.catalagofilmes.services.IdiomaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Controller
@@ -20,17 +19,34 @@ public class IdiomaController {
     private IdiomaService idiomaService;
 
     @ResponseBody
-    @GetMapping(value = "/idiomasAll")
+    @GetMapping(value = "/All")
     public ResponseEntity<List<Idioma>> findAll(){
         List<Idioma> list = idiomaService.findAll();
         return ResponseEntity.ok().body(list);
     }
 
     @ResponseBody
-    @GetMapping(value = "/{id}")
+    @GetMapping(value = "/idioma{id}")
     public ResponseEntity<Idioma> findByid(@PathVariable Long id){
         Idioma obj = idiomaService.findById(id);
         return ResponseEntity.ok().body(obj);
+    }
+    @DeleteMapping(value = "/delete{id}")
+    public ResponseEntity<Void> deleteIdioma(@PathVariable Long id){
+        idiomaService.deleteById(id);
+        return ResponseEntity.noContent().build();
+    }
+    @PostMapping(value = "/create")
+    public ResponseEntity<Idioma> salvaCategoria(@RequestBody Idioma idioma){
+        Idioma newIdioma = idiomaService.save(idioma);
+        return ResponseEntity.ok().body(newIdioma);
+    }
+
+    @PutMapping(value = "/update")
+    @Transactional
+    public ResponseEntity<Idioma> update(@RequestBody Idioma obj){
+        Idioma newIdioma = idiomaService.update(obj);
+        return ResponseEntity.ok().body(newIdioma);
     }
 
 

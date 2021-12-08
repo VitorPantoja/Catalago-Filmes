@@ -22,7 +22,8 @@ public class Filme {
     private String dataDelançamento;
     private String duração;
 
-    @ManyToOne
+    @JoinColumn
+    @ManyToOne//(cascade = CascadeType.ALL)
     private Idioma idiomas;
 
 

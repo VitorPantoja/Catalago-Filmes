@@ -36,6 +36,11 @@ public class UsuarioService {
     public Usuario update(Usuario obj){
 
         Usuario newObj = usuarioRepository.getById(obj.getId());
+        newObj.setNome(obj.getNome());
+        newObj.setTelefone(obj.getTelefone());
+        newObj.setIdioma(obj.getIdioma());
+        newObj.setEmaiil(obj.getEmaiil());
+        newObj.setCpf(obj.getCpf());
         return usuarioRepository.save(newObj);
 
     }

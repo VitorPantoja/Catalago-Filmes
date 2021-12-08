@@ -8,13 +8,14 @@ import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
 @Service
-public class CategoriaService {
-
+public class CategoriaService implements Serializable {
+    private static final long serialVersionUID = 1L;
     @Autowired
     private CategoriaRepository categoriaRepository;
 
@@ -37,8 +38,11 @@ public class CategoriaService {
 
     public Categoria update(Categoria obj){
         Categoria newObj = categoriaRepository.getById(obj.getId());
+        newObj.setNome(obj.getNome());
+        newObj.setTag(obj.getTag());
+        newObj.setIdiomas(obj.getIdiomas());
 
-        return categoriaRepository.save(obj);
+        return categoriaRepository.save(newObj);
 
     }
 

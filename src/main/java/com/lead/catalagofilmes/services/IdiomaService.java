@@ -33,6 +33,8 @@ public class IdiomaService {
 
     public Idioma update(Idioma obj){
         Idioma newObj = idiomaRepository.getById(obj.getId());
+        newObj.setNome(obj.getNome());
+        newObj.setTag(obj.getTag());
         return idiomaRepository.save(newObj);
     }
 
