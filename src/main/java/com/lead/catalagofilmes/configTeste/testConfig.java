@@ -11,6 +11,7 @@ import com.lead.catalagofilmes.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.Arrays;
 
@@ -49,9 +50,11 @@ public class testConfig implements CommandLineRunner{
         Filme filme2 = new Filme(null,"Cleber, o cacto", "O filme retrata a vida diária de Cleber e sua vida de cacto apreciando o sol e uma brisa", "Finge que tem uma imagem aqui", "20/01/2021","1hr",portugues,aventura);
 
 
-        Usuario Elano = new Usuario(null,"Elano","000-000-000-00","+00-000-00000000","elanoDescomplica@email.com","queSenha",ingles);
-        Usuario Cleber = new Usuario(null, "Cleber","000.000.000-00","+000000000-0000","emailDescomplica@email.com","queSenha?",portugues);
+        System.out.println(new BCryptPasswordEncoder().encode("queSenha"));
 
+      /*  Usuario Elano = new Usuario(null,"Elano","000-000-000-00","+00-000-00000000","elanoDescomplica@email.com","queSenha",ingles);
+        Usuario Cleber = new Usuario(null, "Cleber","000.000.000-00","+000000000-0000","emailDescomplica@email.com","queSenha?",portugues);
+*/
 
         /*idiomaRepository.saveAll(Arrays.asList(ingles,portugues));
         categoriaRepository.saveAll(Arrays.asList(aventura));
