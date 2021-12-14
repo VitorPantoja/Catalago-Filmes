@@ -50,7 +50,7 @@ public class testConfig implements CommandLineRunner{
         Filme filme2 = new Filme(null,"Cleber, o cacto", "O filme retrata a vida diária de Cleber e sua vida de cacto apreciando o sol e uma brisa", "Finge que tem uma imagem aqui", "20/01/2021","1hr",portugues,aventura);
 
 
-        System.out.println(new BCryptPasswordEncoder().encode("queSenha"));
+        System.out.println(new BCryptPasswordEncoder().encode("123456"));
 
       /*  Usuario Elano = new Usuario(null,"Elano","000-000-000-00","+00-000-00000000","elanoDescomplica@email.com","queSenha",ingles);
         Usuario Cleber = new Usuario(null, "Cleber","000.000.000-00","+000000000-0000","emailDescomplica@email.com","queSenha?",portugues);
