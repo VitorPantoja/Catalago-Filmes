@@ -1,6 +1,5 @@
 package com.lead.catalagofilmes.services;
 
-import com.lead.catalagofilmes.models.Filme;
 import com.lead.catalagofilmes.models.Usuario;
 import com.lead.catalagofilmes.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +38,7 @@ public class UsuarioService {
         newObj.setNome(obj.getNome());
         newObj.setTelefone(obj.getTelefone());
         newObj.setIdioma(obj.getIdioma());
-        newObj.setEmaiil(obj.getEmaiil());
+        newObj.setEmail(obj.getEmail());
         newObj.setCpf(obj.getCpf());
         return usuarioRepository.save(newObj);
 
