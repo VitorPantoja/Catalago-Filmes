@@ -11,8 +11,6 @@ import com.lead.catalagofilmes.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-//import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.Arrays;
 
@@ -50,16 +48,14 @@ public class testConfig implements CommandLineRunner{
         Filme filme = new Filme(null,"The secret life of ElanoDescomplica", "Elano vivi no seu mundo da lua e de repente encontra o seu real propósito de vida","fingi que realmente tem uma imagem","20/12/2013","1h 54min",portugues,aventura);
         Filme filme2 = new Filme(null,"Cleber, o cacto", "O filme retrata a vida diária de Cleber e sua vida de cacto apreciando o sol e uma brisa", "Finge que tem uma imagem aqui", "20/01/2021","1hr",portugues,aventura);
 
-        System.out.println(new BCryptPasswordEncoder().encode("123456"));
-
-        //System.out.println(new BCryptPasswordEncoder().encode("123456"));
 
         Usuario Elano = new Usuario(null,"Elano","000-000-000-00","+00-000-00000000","elanoDescomplica@email.com","queSenha",ingles);
-        Usuario Cleber = new Usuario(null, "Peiton","000.000.000-00","+000000000-0000","email@email.com","$2a$10$QL8O.6xqTcBxAZ1ESdFRoeb0EqrOlz3u4KjlqVA5VJEdlMcpNfXf2",portugues);
+        Usuario Cleber = new Usuario(null, "Cleber","000.000.000-00","+000000000-0000","emailDescomplica@email.com","queSenha?",portugues);
 
-      /*  idiomaRepository.saveAll(Arrays.asList(ingles,portugues));
-        *//*categoriaRepository.saveAll(Arrays.asList(aventura));
-        filmeRepository.saveAll(Arrays.asList(filme, filme2));*//*
+
+        /*idiomaRepository.saveAll(Arrays.asList(ingles,portugues));
+        categoriaRepository.saveAll(Arrays.asList(aventura));
+        filmeRepository.saveAll(Arrays.asList(filme, filme2));
         usuarioRepository.saveAll(Arrays.asList(Elano,Cleber));*/
 
         //idiomaRepository.saveAll(Arrays.asList(ingles, portugues));
