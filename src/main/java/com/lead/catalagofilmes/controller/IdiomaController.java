@@ -6,6 +6,7 @@ import com.lead.catalagofilmes.services.IdiomaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
@@ -37,7 +38,7 @@ public class IdiomaController {
         return ResponseEntity.noContent().build();
     }
     @PostMapping(value = "/create")
-    public ResponseEntity<Idioma> salvaCategoria(@RequestBody Idioma idioma){
+    public ResponseEntity<Idioma> salvaCategoria(@RequestBody @Validated Idioma idioma){
         Idioma newIdioma = idiomaService.save(idioma);
         return ResponseEntity.ok().body(newIdioma);
     }

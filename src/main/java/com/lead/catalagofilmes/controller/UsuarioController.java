@@ -1,15 +1,20 @@
 package com.lead.catalagofilmes.controller;
 
 import com.lead.catalagofilmes.models.Categoria;
+import com.lead.catalagofilmes.models.Filme;
 import com.lead.catalagofilmes.models.Usuario;
 import com.lead.catalagofilmes.services.UsuarioService;
+import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping(value = "/user")
@@ -20,34 +25,63 @@ public class UsuarioController {
 
     @ResponseBody
     @GetMapping(value = "/All")
-    public ResponseEntity<List<Usuario>> findAll(){
-        List<Usuario> list = usuarioService.findAll();
-        return ResponseEntity.ok().body(list);
+    public ResponseEntity<?> findAll(){
+        try {
+            List<Usuario> filmes = usuarioService.findAll();
+            if (filmes.isEmpty()){
+                throw  new Exception("Erro, sem usuários cadastrados");
+            }
+            //return new ResponseEntity<List<Filme>>(filmes, HttpStatus.OK); nao funfo :(
+            return ResponseEntity.ok().body(filmes);//só foi assim :)
+        } catch (Exception e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @ResponseBody
     @GetMapping(value = "/{id}")
-    public ResponseEntity<Usuario> findById(@PathVariable Long id){
-        Usuario obj = usuarioService.findById(id);
-        return ResponseEntity.ok().body(obj);
+    public ResponseEntity<?> findById(@PathVariable Long id){
+        try {
+            Optional<Usuario> obj = usuarioService.findById(id);
+            if (!obj.isPresent()){
+                return new ResponseEntity<String>("Não foi encontrado o usuário especificado", HttpStatus.NOT_FOUND);
+            }
+            return ResponseEntity.ok().body(obj);
+        }
+        catch (Exception e){
+            return ResponseEntity.badRequest().build();
+        }
     }
 
     @PostMapping(value = "/create")
-    public ResponseEntity<Usuario> salvaCategoria(@RequestBody Usuario obj){
-        Usuario newUsuario = usuarioService.save(obj);
-        return ResponseEntity.ok().body(newUsuario);
+    public ResponseEntity<?> salvaCategoria(@RequestBody @Validated Usuario obj){
+        try {
+            return ResponseEntity.ok().body(usuarioService.save(obj));
+        }catch (Exception e){
+            return new ResponseEntity<String>("Erro ao salvar o usuario",HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @DeleteMapping(value = "/delete{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id){
-        usuarioService.deleteById(id);
-        return ResponseEntity.noContent().build();
+    public ResponseEntity<?> delete(@PathVariable Long id){
+        try{
+            usuarioService.deleteById(id);
+            return new ResponseEntity<>("Usuário de id"+ id +" foi excluído com sucesso", HttpStatus.OK);
+        } catch (Exception e){
+            return new ResponseEntity<>("Erro ao deletar o usuário",HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @PutMapping(value = "/update")
     @Transactional
-    public ResponseEntity<Usuario> updateCategoria(@RequestBody Usuario obj){
-        Usuario newUsuario = usuarioService.update(obj);
-        return ResponseEntity.ok().body(newUsuario);
+    public ResponseEntity<?>updateUsuario(@RequestBody @Validated Usuario obj){
+        try{
+            if (obj == null){
+                return new ResponseEntity<>("Não foi encontrado o usuário especificado",HttpStatus.NOT_FOUND);
+            }
+            return ResponseEntity.ok().body(usuarioService.update(obj));
+        } catch(Exception e){
+            return new ResponseEntity<String>("Erro atualizar em usuário", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }

@@ -18,10 +18,8 @@ public class UsuarioService {
         return usuarioRepository.findAll();
     }
 
-    public Usuario findById(Long id){
-        Optional<Usuario> obg = usuarioRepository.findById(id);
-
-        return obg.get();
+    public Optional<Usuario> findById(Long id){
+        return usuarioRepository.findById(id);
     }
 
     public Usuario save(Usuario obj){

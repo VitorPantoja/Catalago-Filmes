@@ -11,5 +11,6 @@ public interface FilmeRepository extends JpaRepository<Filme, Long> {
 
     @Query("SELECT f FROM Filme f WHERE LOWER(f.titulo) LIKE LOWER(CONCAT('%',:titulo_filme,'%')) ")
     List<Filme> searchName(String titulo_filme);
+
     List<Filme> findByCategoria(Categoria categoria);
 }

@@ -23,9 +23,9 @@ public class FilmeService {
         return filmeRepository.findAll();
     }
 
-    public Filme findById(Long id){
-        Optional<Filme> obg = filmeRepository.findById(id);
-        return obg.get();
+    public Optional<Filme> findById(Long id){
+
+        return filmeRepository.findById(id);
     }
 
     public Filme save(Filme obj){

@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.security.Security;
+import java.util.Optional;
 
 
 public class AutenticacaoTokenFilter extends OncePerRequestFilter {
@@ -39,9 +40,11 @@ public class AutenticacaoTokenFilter extends OncePerRequestFilter {
 
     private void autenticarCliente(String token) {
         Long idUsuario = tokenService.getIdUsuario(token);
-        Usuario usuario = usuarioService.findById(idUsuario);
-        UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(usuario, null, usuario.getAuthorities());
-        SecurityContextHolder.getContext().setAuthentication(authentication);
+        Optional<Usuario> usuario = usuarioService.findById(idUsuario);
+        if (usuario.isPresent()) {
+            UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(usuario.get(), null, usuario.get().getAuthorities());
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+        }
     }
 
     private String recuperarToken(HttpServletRequest request) {

@@ -5,6 +5,7 @@ import com.lead.catalagofilmes.services.CategoriaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
@@ -33,7 +34,7 @@ public class CategoriaController {
 
     @PutMapping(value = "/categoriaUP")
     @Transactional
-    public ResponseEntity<Categoria> updateCategoria(@RequestBody Categoria obj){
+    public ResponseEntity<Categoria> updateCategoria(@RequestBody @Validated Categoria obj){
         Categoria categoria = categoriaService.update(obj);
         return ResponseEntity.ok().body(categoria);
     }
