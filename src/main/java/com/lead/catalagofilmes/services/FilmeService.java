@@ -53,15 +53,18 @@ public class FilmeService {
     }
 
     public List<Filme> findByCategoria(Long id){
-        Categoria categoria = categoriaService.findById(id);
+        Optional<Categoria> categoria = categoriaService.findById(id);
         List<Filme> filmes = new ArrayList<>();
         if(categoria != null){
-            filmes = filmeRepository.findByCategoria(categoria);
+            filmes = filmeRepository.findByCategoria(categoria.get());
             return filmes;
         }
         return null;
     }
 
+    public boolean verificaServiceFilme(Long id){
+        return filmeRepository.existsById(id);
+    }
 
 
 

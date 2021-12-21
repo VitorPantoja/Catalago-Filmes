@@ -1,4 +1,4 @@
-package com.lead.catalagofilmes.controller;
+package com.lead.catalagofilmes.config.security;
 
 import com.lead.catalagofilmes.models.Usuario;
 import io.jsonwebtoken.Claims;

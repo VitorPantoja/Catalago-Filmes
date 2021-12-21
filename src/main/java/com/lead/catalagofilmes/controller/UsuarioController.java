@@ -31,7 +31,7 @@ public class UsuarioController {
             if (filmes.isEmpty()){
                 throw  new Exception("Erro, sem usuários cadastrados");
             }
-            //return new ResponseEntity<List<Filme>>(filmes, HttpStatus.OK); nao funfo :(
+            //return new ResponseEntity<List<Usuario>>(filmes, HttpStatus.OK);// nao funfo :(
             return ResponseEntity.ok().body(filmes);//só foi assim :)
         } catch (Exception e){
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
@@ -45,16 +45,17 @@ public class UsuarioController {
             Optional<Usuario> obj = usuarioService.findById(id);
             if (!obj.isPresent()){
                 return new ResponseEntity<String>("Não foi encontrado o usuário especificado", HttpStatus.NOT_FOUND);
+                //throw new Exception("Usuario não existe");
             }
             return ResponseEntity.ok().body(obj);
         }
         catch (Exception e){
-            return ResponseEntity.badRequest().build();
+            return new ResponseEntity<String>("Usuário não encontrado", HttpStatus.NOT_FOUND);
         }
     }
 
     @PostMapping(value = "/create")
-    public ResponseEntity<?> salvaCategoria(@RequestBody @Validated Usuario obj){
+    public ResponseEntity<?> salvaUsuario(@RequestBody @Validated Usuario obj){
         try {
             return ResponseEntity.ok().body(usuarioService.save(obj));
         }catch (Exception e){
@@ -66,9 +67,9 @@ public class UsuarioController {
     public ResponseEntity<?> delete(@PathVariable Long id){
         try{
             usuarioService.deleteById(id);
-            return new ResponseEntity<>("Usuário de id"+ id +" foi excluído com sucesso", HttpStatus.OK);
+            return new ResponseEntity<String>("Usuário de id"+ id +" foi excluído com sucesso", HttpStatus.OK);
         } catch (Exception e){
-            return new ResponseEntity<>("Erro ao deletar o usuário",HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<String>("Erro ao deletar o usuário",HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -76,8 +77,8 @@ public class UsuarioController {
     @Transactional
     public ResponseEntity<?>updateUsuario(@RequestBody @Validated Usuario obj){
         try{
-            if (obj == null){
-                return new ResponseEntity<>("Não foi encontrado o usuário especificado",HttpStatus.NOT_FOUND);
+            if (usuarioService.verificaServiceUsuario(obj.getId())){
+                return new ResponseEntity<String>("Não foi encontrado o usuário especificado",HttpStatus.NOT_FOUND);
             }
             return ResponseEntity.ok().body(usuarioService.update(obj));
         } catch(Exception e){

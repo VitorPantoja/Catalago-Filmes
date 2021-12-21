@@ -23,9 +23,8 @@ public class CategoriaService implements Serializable {
         return categoriaRepository.findAll();
     }
 
-    public Categoria findById(Long id){
-        Optional<Categoria> obj = categoriaRepository.findById(id);
-        return obj.get();
+    public Optional<Categoria> findById(Long id){
+        return categoriaRepository.findById(id);
     }
 
     public Categoria save(Categoria obj){
@@ -45,6 +44,11 @@ public class CategoriaService implements Serializable {
         return categoriaRepository.save(newObj);
 
     }
+    public boolean verificaServiceCategoria(Long id){
+        return categoriaRepository.existsById(id);
+    }
+
+
 
 
 

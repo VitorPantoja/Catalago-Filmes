@@ -4,6 +4,7 @@ import com.lead.catalagofilmes.models.Categoria;
 import com.lead.catalagofilmes.models.Idioma;
 import com.lead.catalagofilmes.services.IdiomaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping(value = "/idiomas")
@@ -21,33 +23,63 @@ public class IdiomaController {
 
     @ResponseBody
     @GetMapping(value = "/All")
-    public ResponseEntity<List<Idioma>> findAll(){
-        List<Idioma> list = idiomaService.findAll();
-        return ResponseEntity.ok().body(list);
+    public ResponseEntity<?> findAll(){
+        try{
+            List<Idioma> idiomas = idiomaService.findAll();
+            if (idiomas.isEmpty()){
+                throw new Exception("Erro, não existem idiomas cadastrados");
+            }
+            return ResponseEntity.ok().body(idiomas);
+
+        }catch (Exception e){
+            return new ResponseEntity<String>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @ResponseBody
     @GetMapping(value = "/idioma{id}")
-    public ResponseEntity<Idioma> findByid(@PathVariable Long id){
-        Idioma obj = idiomaService.findById(id);
-        return ResponseEntity.ok().body(obj);
+    public ResponseEntity<?> findByid(@PathVariable Long id){
+        try {
+            Optional<Idioma> obj = idiomaService.findById(id);
+            if (!obj.isPresent()){
+                throw new Exception("Idioma não encontrado");
+            }
+            return ResponseEntity.ok().body(obj);
+        }catch (Exception e){
+            return new ResponseEntity<>("Idioma não encontrado",HttpStatus.NOT_FOUND);
+        }
     }
     @DeleteMapping(value = "/delete{id}")
-    public ResponseEntity<Void> deleteIdioma(@PathVariable Long id){
-        idiomaService.deleteById(id);
-        return ResponseEntity.noContent().build();
+    public ResponseEntity<?> deleteIdioma(@PathVariable Long id){
+        try {
+            idiomaService.deleteById(id);
+            return new ResponseEntity<String>("Idioma de id "+ id +" foi excluído com sucesso", HttpStatus.OK);
+        } catch (Exception e){
+            return new ResponseEntity<String>("Erro ao deletar idioma",HttpStatus.INTERNAL_SERVER_ERROR);
+
+        }
+
     }
     @PostMapping(value = "/create")
-    public ResponseEntity<Idioma> salvaCategoria(@RequestBody @Validated Idioma idioma){
-        Idioma newIdioma = idiomaService.save(idioma);
-        return ResponseEntity.ok().body(newIdioma);
+    public ResponseEntity<?> salvaCategoria(@RequestBody @Validated Idioma idioma){
+        try {
+            return ResponseEntity.ok().body(idiomaService.save(idioma));
+        } catch (Exception e){
+            return new ResponseEntity<String>("Erro em salvar o idioma", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @PutMapping(value = "/update")
     @Transactional
-    public ResponseEntity<Idioma> update(@RequestBody Idioma obj){
-        Idioma newIdioma = idiomaService.update(obj);
-        return ResponseEntity.ok().body(newIdioma);
+    public ResponseEntity<?> update(@RequestBody @Validated Idioma obj){
+        try {
+            if (idiomaService.verificaServiceIdioma(obj.getId())){
+                return  new ResponseEntity<String>("Não foi encontrado o idioma especificado",HttpStatus.NOT_FOUND);
+            }
+            return ResponseEntity.ok().body(idiomaService.update(obj));
+        } catch (Exception e){
+            return new ResponseEntity<String>("Erro a atualizar o idioma", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
 

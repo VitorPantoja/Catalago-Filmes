@@ -41,6 +41,9 @@ public class UsuarioService {
         return usuarioRepository.save(newObj);
 
     }
+    public boolean verificaServiceUsuario(Long id){
+        return usuarioRepository.existsById(id);
+    }
 
 
 }

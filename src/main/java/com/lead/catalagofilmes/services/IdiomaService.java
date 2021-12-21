@@ -18,9 +18,8 @@ public class IdiomaService {
         return idiomaRepository.findAll();
     }
 
-    public Idioma findById(Long id){
-        Optional<Idioma> obj = idiomaRepository.findById(id);
-        return obj.get();
+    public Optional<Idioma> findById(Long id){
+        return idiomaRepository.findById(id);
     }
 
     public Idioma save(Idioma idioma){
@@ -36,6 +35,10 @@ public class IdiomaService {
         newObj.setNome(obj.getNome());
         newObj.setTag(obj.getTag());
         return idiomaRepository.save(newObj);
+    }
+
+    public boolean verificaServiceIdioma(Long id){
+        return idiomaRepository.existsById(id);
     }
 
 

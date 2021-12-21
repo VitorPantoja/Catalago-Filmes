@@ -1,8 +1,6 @@
 package com.lead.catalagofilmes.controller;
 
-import com.lead.catalagofilmes.models.Categoria;
 import com.lead.catalagofilmes.models.Filme;
-import com.lead.catalagofilmes.models.Idioma;
 import com.lead.catalagofilmes.services.FilmeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -40,7 +38,7 @@ public class FilmeController {
     public ResponseEntity<?> findById(@PathVariable Long id){
         try{
             Optional<Filme> obj = filmeService.findById(id);
-            if (obj.isEmpty()){
+            if (!obj.isPresent()){
                 throw new Exception("Filme não encontrado");
             }
             return ResponseEntity.ok().body(obj);
@@ -53,7 +51,7 @@ public class FilmeController {
     public ResponseEntity<?> findByCategoria(@PathVariable Long id){
         try{
             List<Filme> filmes = filmeService.findByCategoria(id);
-            if (filmes == null){
+            if (filmes.isEmpty()){
                 return new ResponseEntity<>("Categoria não encontrada", HttpStatus.NOT_FOUND);
             }
             return ResponseEntity.ok().body(filmes);
@@ -64,9 +62,9 @@ public class FilmeController {
 
     @PutMapping(value = "/update")
     @Transactional
-    public ResponseEntity<?> update(@RequestBody @Validated Filme obj){
+    public ResponseEntity<?> updateFilme(@RequestBody @Validated Filme obj){
         try {
-            if (obj == null){
+            if (filmeService.verificaServiceFilme(obj.getId())){
                 return new ResponseEntity<>("Não foi encontrado o filme especificado",HttpStatus.NOT_FOUND);
             }
             return ResponseEntity.ok().body(filmeService.update(obj));
@@ -92,7 +90,7 @@ public class FilmeController {
     }
 
     @PostMapping(value = "/create")
-    public ResponseEntity<?> salvaFilme(@RequestBody Filme filme){
+    public ResponseEntity<?> salvaFilme(@RequestBody @Validated Filme filme){
         try {
             Filme newFilme = filmeService.save(filme);
             return ResponseEntity.ok().body(newFilme);

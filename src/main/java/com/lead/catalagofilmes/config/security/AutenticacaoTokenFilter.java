@@ -1,6 +1,5 @@
 package com.lead.catalagofilmes.config.security;
 
-import com.lead.catalagofilmes.controller.TokenServicee;
 import com.lead.catalagofilmes.models.Usuario;
 import com.lead.catalagofilmes.services.UsuarioService;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -12,7 +11,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.security.Security;
 import java.util.Optional;
 
 

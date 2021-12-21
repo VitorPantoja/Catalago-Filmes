@@ -1,4 +1,4 @@
-package com.lead.catalagofilmes.controller.dto;
+package com.lead.catalagofilmes.models.dto;
 
 import lombok.Getter;
 import lombok.Setter;

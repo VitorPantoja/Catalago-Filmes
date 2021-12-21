@@ -2,7 +2,7 @@ package com.lead.catalagofilmes.config;
 
 import com.lead.catalagofilmes.config.security.AutenticacaoService;
 import com.lead.catalagofilmes.config.security.AutenticacaoTokenFilter;
-import com.lead.catalagofilmes.controller.TokenServicee;
+import com.lead.catalagofilmes.config.security.TokenServicee;
 import com.lead.catalagofilmes.services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
