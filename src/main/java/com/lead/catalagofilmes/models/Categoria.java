@@ -16,7 +16,6 @@ public class Categoria {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;
 
-
     @ManyToOne//(cascade = CascadeType.ALL)
     @JoinColumn
     private Idioma idiomas;
