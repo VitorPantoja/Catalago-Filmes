@@ -1,16 +1,11 @@
 package com.lead.catalagofilmes.models;
-
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
+import javax.validation.constraints.NotBlank;
 import javax.persistence.*;
-import java.util.ArrayList;
-
-import java.util.List;
+import javax.validation.constraints.NotEmpty;
 
 @Getter @Setter
 @Entity
@@ -21,15 +16,20 @@ public class Categoria {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;
 
+
     @ManyToOne//(cascade = CascadeType.ALL)
     @JoinColumn
     private Idioma idiomas;
 
+    @Column(nullable = false)
+    @NotBlank
+    @NotEmpty
     private String nome;
+
+    @Column(nullable = false)
+    @NotBlank
+    @NotEmpty
     private String tag;
-
-
-
 
 }
 

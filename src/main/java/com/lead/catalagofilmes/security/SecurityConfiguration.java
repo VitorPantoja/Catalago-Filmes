@@ -1,8 +1,4 @@
-package com.lead.catalagofilmes.config;
-
-import com.lead.catalagofilmes.config.security.AutenticacaoService;
-import com.lead.catalagofilmes.config.security.AutenticacaoTokenFilter;
-import com.lead.catalagofilmes.config.security.TokenServicee;
+package com.lead.catalagofilmes.security;
 import com.lead.catalagofilmes.services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -26,7 +22,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     private AutenticacaoService autenticacaoService;
 
     @Autowired
-    private TokenServicee tokenService;
+    private AuthTokenService tokenService;
 
     @Autowired
     private UsuarioService usuarioService;
@@ -57,14 +53,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     }
 
-   /*
-   @Bean
-   public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }*/
-
     @Override
     public void configure(WebSecurity web) throws Exception {
-
     }
+
 }

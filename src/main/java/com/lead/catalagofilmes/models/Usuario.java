@@ -1,49 +1,56 @@
 package com.lead.catalagofilmes.models;
-
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import java.util.Collection;
 import java.util.ArrayList;
 import java.util.List;
 
-
 @Getter @Setter
 @Entity
 @NoArgsConstructor
+@AllArgsConstructor
 public class Usuario implements UserDetails {
-
-    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String nome;
-    private String cpf;
-    private String telefone;
-    private String email;
-    private String senha;
 
-    public Usuario(Long id, String nome, String cpf, String telefone, String email, String senha, Idioma idioma) {
-        this.id = id;
-        this.nome = nome;
-        this.cpf = cpf;
-        this.telefone = telefone;
-        this.email = email;
-        this.senha = senha;
-        this.idioma = idioma;
-    }
+    @Column(nullable = false)
+    @NotBlank
+    @NotEmpty
+    private String nome;
+
+    @Column(nullable = false)
+    @NotBlank
+    @NotEmpty
+    private String cpf;
+
+    @Column(nullable = false)
+    @NotBlank
+    @NotEmpty
+    private String telefone;
+
+    @Column(nullable = false)
+    @NotBlank
+    @NotEmpty
+    private String email;
+
+    @Column(nullable = false)
+    @NotBlank
+    @NotEmpty
+    private String senha;
 
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Perfil> perfis = new ArrayList<>();
 
-    @OneToOne//(cascade = CascadeType.ALL)
+    @OneToOne
     @JoinColumn
     private Idioma idioma;
 
@@ -62,7 +69,7 @@ public class Usuario implements UserDetails {
         return this.email;
     }
 
-    @Override//controle
+    @Override
     public boolean isAccountNonExpired() {
         return true;
     }
@@ -81,5 +88,6 @@ public class Usuario implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
 }
 

@@ -1,10 +1,9 @@
 package com.lead.catalagofilmes.controller;
-
-
-import com.lead.catalagofilmes.config.security.TokenServicee;
-import com.lead.catalagofilmes.models.dto.TokenDto;
+import com.lead.catalagofilmes.security.AuthTokenService;
+import com.lead.catalagofilmes.models.dto.TokenDTO;
 import com.lead.catalagofilmes.models.dto.UsuarioDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -24,24 +23,22 @@ public class AutenticacaoController {
     private AuthenticationManager authenticationManager;
 
     @Autowired
-    private TokenServicee tokenService;
+    private AuthTokenService tokenService;
 
     @PostMapping
-    public ResponseEntity<TokenDto> autenticacao(@RequestBody @Validated UsuarioDTO usuarioDTO){
+    public ResponseEntity<?> autenticacao(@RequestBody @Validated UsuarioDTO usuarioDTO){
 
         UsernamePasswordAuthenticationToken dadosLogin = usuarioDTO.converter();
 
         try {
-            //chama autenticationService
             Authentication authentication = authenticationManager.authenticate(dadosLogin);
-
 
             String token = tokenService.gerarToken(authentication);
 
-            return ResponseEntity.ok(new TokenDto(token, "Bearer"));
+            return ResponseEntity.ok(new TokenDTO(token, "Bearer").toString());
 
         } catch (AuthenticationException e){
-            return ResponseEntity.badRequest().build();
+            return new ResponseEntity<String>(e.getMessage(), HttpStatus.UNAUTHORIZED);
         }
     }
 }

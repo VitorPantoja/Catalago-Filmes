@@ -1,17 +1,12 @@
 package com.lead.catalagofilmes.controller;
-
-import com.lead.catalagofilmes.models.Categoria;
-import com.lead.catalagofilmes.models.Filme;
 import com.lead.catalagofilmes.models.Usuario;
 import com.lead.catalagofilmes.services.UsuarioService;
-import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
@@ -27,14 +22,13 @@ public class UsuarioController {
     @GetMapping(value = "/All")
     public ResponseEntity<?> findAll(){
         try {
-            List<Usuario> filmes = usuarioService.findAll();
-            if (filmes.isEmpty()){
-                throw  new Exception("Erro, sem usuários cadastrados");
+            List<Usuario> usuarios = usuarioService.findAll();
+            if (usuarios.isEmpty()){
+                return new ResponseEntity<String>("Erro, sem usuários cadastrados",HttpStatus.NOT_FOUND);
             }
-            //return new ResponseEntity<List<Usuario>>(filmes, HttpStatus.OK);// nao funfo :(
-            return ResponseEntity.ok().body(filmes);//só foi assim :)
+            return new ResponseEntity<List<Usuario>>(usuarios, HttpStatus.OK);
         } catch (Exception e){
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<String>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -45,7 +39,6 @@ public class UsuarioController {
             Optional<Usuario> obj = usuarioService.findById(id);
             if (!obj.isPresent()){
                 return new ResponseEntity<String>("Não foi encontrado o usuário especificado", HttpStatus.NOT_FOUND);
-                //throw new Exception("Usuario não existe");
             }
             return ResponseEntity.ok().body(obj);
         }
@@ -57,17 +50,21 @@ public class UsuarioController {
     @PostMapping(value = "/create")
     public ResponseEntity<?> salvaUsuario(@RequestBody @Validated Usuario obj){
         try {
-            return ResponseEntity.ok().body(usuarioService.save(obj));
+            Usuario salvaUsuario = usuarioService.save(obj);
+            return ResponseEntity.ok().body(salvaUsuario);
         }catch (Exception e){
             return new ResponseEntity<String>("Erro ao salvar o usuario",HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-    @DeleteMapping(value = "/delete{id}")
+    @DeleteMapping(value = "/delete/{id}")
     public ResponseEntity<?> delete(@PathVariable Long id){
         try{
+            if(!usuarioService.verificaServiceUsuario(id)){
+                return new ResponseEntity<String>("Não foi encontrado o usuário especificado",HttpStatus.NOT_FOUND);
+            }
             usuarioService.deleteById(id);
-            return new ResponseEntity<String>("Usuário de id"+ id +" foi excluído com sucesso", HttpStatus.OK);
+            return new ResponseEntity<String>("Usuário de id "+ id +" foi excluído com sucesso", HttpStatus.OK);
         } catch (Exception e){
             return new ResponseEntity<String>("Erro ao deletar o usuário",HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -77,12 +74,14 @@ public class UsuarioController {
     @Transactional
     public ResponseEntity<?>updateUsuario(@RequestBody @Validated Usuario obj){
         try{
-            if (usuarioService.verificaServiceUsuario(obj.getId())){
+            if (!usuarioService.verificaServiceUsuario(obj.getId())){
                 return new ResponseEntity<String>("Não foi encontrado o usuário especificado",HttpStatus.NOT_FOUND);
             }
-            return ResponseEntity.ok().body(usuarioService.update(obj));
+            Usuario atualizaUsuario = usuarioService.update(obj);
+            return ResponseEntity.ok().body(atualizaUsuario);
         } catch(Exception e){
             return new ResponseEntity<String>("Erro atualizar em usuário", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
 }

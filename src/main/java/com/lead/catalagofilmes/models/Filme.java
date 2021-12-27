@@ -1,12 +1,11 @@
 package com.lead.catalagofilmes.models;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 
 @Getter @Setter
 @Entity
@@ -15,21 +14,40 @@ import javax.persistence.*;
 public class Filme {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private Long id;
+
+    @Column(nullable = false)
+    @NotBlank
+    @NotEmpty
     private String titulo;
+
+    @Column(nullable = false)
+    @NotBlank
+    @NotEmpty
     private String sinopse;
+
+    @Column(nullable = false)
+    @NotBlank
+    @NotEmpty
     private String imagem;
+
+    @Column(nullable = false)
+    @NotBlank
+    @NotEmpty
     private String dataDelançamento;
+
+    @Column(nullable = false)
+    @NotBlank
+    @NotEmpty
     private String duração;
 
     @JoinColumn
-    @ManyToOne//(cascade = CascadeType.ALL)
+    @ManyToOne
     private Idioma idiomas;
-
 
     @ManyToOne
     @JoinColumn
     private Categoria categoria;
-
 
 }

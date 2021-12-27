@@ -1,5 +1,4 @@
-package com.lead.catalagofilmes.config.security;
-
+package com.lead.catalagofilmes.security;
 import com.lead.catalagofilmes.models.Usuario;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -7,12 +6,11 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
-
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
 
 @Service
-public class TokenServicee {
+public class AuthTokenService {
 
     @Value("${forum.jwt.expiration}")
     private String expiration;
@@ -24,7 +22,6 @@ public class TokenServicee {
         Usuario log = (Usuario) authentication.getPrincipal();
         Date agoraHoje = new Date();
         Date dataExpiracao = new Date((agoraHoje.getTime()) + Long.parseLong(expiration));
-
 
         return Jwts.builder()
                 .setIssuer("API CATALAGO-FILMES")
@@ -50,6 +47,7 @@ public class TokenServicee {
 
         return Long.parseLong(claims.getSubject());
     }
+
 }
 
 

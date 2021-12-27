@@ -1,11 +1,9 @@
-package com.lead.catalagofilmes.config.security;
-
+package com.lead.catalagofilmes.security;
 import com.lead.catalagofilmes.models.Usuario;
 import com.lead.catalagofilmes.services.UsuarioService;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
-
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -13,13 +11,12 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Optional;
 
-
 public class AutenticacaoTokenFilter extends OncePerRequestFilter {
 
-    private TokenServicee tokenService;
+    private AuthTokenService tokenService;
     private UsuarioService usuarioService;
 
-    public AutenticacaoTokenFilter(TokenServicee tokenService, UsuarioService usuarioService) {
+    public AutenticacaoTokenFilter(AuthTokenService tokenService, UsuarioService usuarioService) {
         this.tokenService = tokenService;
         this.usuarioService = usuarioService;
     }
@@ -27,12 +24,11 @@ public class AutenticacaoTokenFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String token = recuperarToken(request);
-       // System.out.println(token);
+
         boolean valido = tokenService.validaToken(token);
         if (valido){
             autenticarCliente(token);
         }
-
         filterChain.doFilter(request, response);
     }
 
@@ -52,4 +48,5 @@ public class AutenticacaoTokenFilter extends OncePerRequestFilter {
         }
         return token.substring(7, token.length());
     }
+
 }

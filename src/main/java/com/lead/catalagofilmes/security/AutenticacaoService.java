@@ -1,4 +1,4 @@
-package com.lead.catalagofilmes.config.security;
+package com.lead.catalagofilmes.security;
 
 import com.lead.catalagofilmes.models.Usuario;
 import com.lead.catalagofilmes.repository.UsuarioRepository;
@@ -20,7 +20,6 @@ public class AutenticacaoService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
         Optional<Usuario> usuario = usuarioRepository.findByEmail(username);
-
         if (usuario.isPresent()){
             return usuario.get();
         }
