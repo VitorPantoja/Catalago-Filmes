@@ -35,7 +35,8 @@ public class AutenticacaoController {
 
             String token = tokenService.gerarToken(authentication);
 
-            return ResponseEntity.ok(new TokenDTO(token, "Bearer").toString());
+            //return ResponseEntity.ok(new TokenDTO(token, "Bearer").toString());
+            return ResponseEntity.ok(new TokenDTO(token, "Bearer")) ;
 
         } catch (AuthenticationException e){
             return new ResponseEntity<String>(e.getMessage(), HttpStatus.UNAUTHORIZED);
