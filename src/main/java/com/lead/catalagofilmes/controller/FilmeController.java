@@ -60,13 +60,13 @@ public class FilmeController {
     }
 
     @PutMapping(value = "/update")
-    @Transactional
     public ResponseEntity<?> updateFilme(@RequestBody @Validated Filme obj){
         try {
             if (!filmeService.verificaServiceFilme(obj.getId())){
                 return new ResponseEntity<String>("Não foi encontrado o filme especificado",HttpStatus.NOT_FOUND);
             }
             Filme atualizaFilme = filmeService.update(obj);
+            System.out.println(atualizaFilme);
             return ResponseEntity.ok().body(atualizaFilme);
         }catch (Exception e){
             return new ResponseEntity<String>("Erro em atulizar o filme", HttpStatus.INTERNAL_SERVER_ERROR);
@@ -80,7 +80,7 @@ public class FilmeController {
                 return new ResponseEntity<String>("Não foi encontrado o filme especificado",HttpStatus.NOT_FOUND);
             }
             filmeService.deleteById(id);
-            return new ResponseEntity<String>("Filme de id "+ id +" excluído com sucesso", HttpStatus.OK);
+            return new ResponseEntity<>(HttpStatus.OK);
         } catch (Exception e){
             return new ResponseEntity<String>("Erro ao deletar filme",HttpStatus.INTERNAL_SERVER_ERROR);
         }

@@ -35,12 +35,12 @@ public class Filme {
     @Column(nullable = false)
     @NotBlank
     @NotEmpty
-    private String dataDelançamento;
+    private String dataDeLancamento;
 
     @Column(nullable = false)
     @NotBlank
     @NotEmpty
-    private String duração;
+    private String duracao;
 
     @JoinColumn
     @ManyToOne

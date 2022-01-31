@@ -64,7 +64,7 @@ public class UsuarioController {
                 return new ResponseEntity<String>("Não foi encontrado o usuário especificado",HttpStatus.NOT_FOUND);
             }
             usuarioService.deleteById(id);
-            return new ResponseEntity<String>("Usuário de id "+ id +" foi excluído com sucesso", HttpStatus.OK);
+            return new ResponseEntity<>(HttpStatus.OK);
         } catch (Exception e){
             return new ResponseEntity<String>("Erro ao deletar o usuário",HttpStatus.INTERNAL_SERVER_ERROR);
         }

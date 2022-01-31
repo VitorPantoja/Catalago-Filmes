@@ -54,7 +54,7 @@ public class IdiomaController {
                 return new ResponseEntity<String>("Idioma não encontrado",HttpStatus.NOT_FOUND);
             }
             idiomaService.deleteById(id);
-            return new ResponseEntity<String>("Idioma de id "+ id +" foi excluído com sucesso", HttpStatus.OK);
+            return new ResponseEntity<>(HttpStatus.OK);
         } catch (Exception e){
             return new ResponseEntity<String>("Erro ao deletar idioma",HttpStatus.INTERNAL_SERVER_ERROR);
 
